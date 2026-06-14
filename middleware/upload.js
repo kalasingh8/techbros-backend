@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
       allowed_formats: isVideo
         ? ['mp4', 'webm', 'ogg', 'mov']
         : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'],
-      public_id: ${Date.now()}-,
+      public_id: `${Date.now()}-${file.originalname.split('.')[0]}`,
     };
   },
 });

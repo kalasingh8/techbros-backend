@@ -75,14 +75,14 @@ router.put('/:id', protect, upload.fields([
     if (req.files && req.files.video) {
       if (video.video) {
         const publicId = video.video.split('/').pop().split('.')[0];
-        await cloudinary.uploader.destroy(	echbros/, { resource_type: 'video' }).catch(() => {});
+        await cloudinary.uploader.destroy(`techbros/${publicId}`, { resource_type: 'video' }).catch(() => {});
       }
       video.video = req.files.video[0].path;
     }
     if (req.files && req.files.thumbnail) {
       if (video.thumbnail) {
         const publicId = video.thumbnail.split('/').pop().split('.')[0];
-        await cloudinary.uploader.destroy(	echbros/, { resource_type: 'image' }).catch(() => {});
+        await cloudinary.uploader.destroy(`techbros/${publicId}`, { resource_type: 'image' }).catch(() => {});
       }
       video.thumbnail = req.files.thumbnail[0].path;
     }
@@ -103,11 +103,11 @@ router.delete('/:id', protect, async (req, res) => {
 
     if (video.video) {
       const publicId = video.video.split('/').pop().split('.')[0];
-      await cloudinary.uploader.destroy(	echbros/, { resource_type: 'video' }).catch(() => {});
+      await cloudinary.uploader.destroy(`techbros/${publicId}`, { resource_type: 'video' }).catch(() => {});
     }
     if (video.thumbnail) {
       const publicId = video.thumbnail.split('/').pop().split('.')[0];
-      await cloudinary.uploader.destroy(	echbros/, { resource_type: 'image' }).catch(() => {});
+      await cloudinary.uploader.destroy(`techbros/${publicId}`, { resource_type: 'image' }).catch(() => {});
     }
 
     await AIVideo.findByIdAndDelete(req.params.id);
