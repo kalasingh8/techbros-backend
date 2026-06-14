@@ -9,11 +9,17 @@ const generateToken = (id) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const adminCount = await Admin.countDocuments();
+    if (adminCount > 0) {
+      return res.status(403).json({ message: 'Admin already exists. Login to create more.' });
+    }
 
-    const adminExists = await Admin.findOne({ username });
-    if (adminExists) {
-      return res.status(400).json({ message: 'Admin already exists' });
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Username and password required' });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters' });
     }
 
     const admin = await Admin.create({ username, password });
